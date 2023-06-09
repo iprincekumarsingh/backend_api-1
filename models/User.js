@@ -12,6 +12,17 @@ const userSchema = new mongoose.Schema(
       required: [true, "Please enter your email"],
       unique: true,
     },
+    phone:{
+      type:String,
+      required:false,
+      trim:true
+    },
+    gender:
+    {
+      type:String,
+      enum:['male','female','other'],
+      required:false
+    },
     password: {
       type: String,
       required: [true, "Please enter your password"],
@@ -25,6 +36,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [false, "Please upload your image"],
     },
+    is_active:{
+      type:String,
+    default:1
+    }
   },
   {
     timestamps: true,
@@ -52,7 +67,6 @@ userSchema.methods.comparePassword = async function (password) {
   }
 };
 userSchema.methods.generateToken = async function () {
-  // try {
     const token = jwt.sign(
       { _id: this._id, role: this.role },
       process.env.JWT_SECRET,
@@ -62,8 +76,6 @@ userSchema.methods.generateToken = async function () {
     );
     return token;
     
-  // } catch (error) {
-  //   throw new Error(error);
-  // }
+
 };
 module.exports = mongoose.model("User", userSchema);

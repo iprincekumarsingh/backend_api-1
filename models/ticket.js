@@ -48,6 +48,14 @@ const ticketSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    ticket_createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    event_id:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Event",
+    }
   },
   {
     timestamps: true,
