@@ -10,7 +10,7 @@ const {
   deleteCategory,
 } = require("../../controllers/categoryController");
 
-router.route("/create-category").post(createCategory);
+router.route("/create-category").post(auth, roleChecker, createCategory);
 router.route("/delete-category/:id").delete(auth, roleChecker, deleteCategory);
 
 // demo data route
